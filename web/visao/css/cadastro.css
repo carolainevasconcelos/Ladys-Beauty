@@ -1,0 +1,112 @@
+:root {
+    --cor1: #f4eeec;
+    --cor2: #4c4f72; 
+    --cor3: #fd3765; 
+    --cor4: #fd6907;
+    --cor5: #fe97b0;
+    --cor6: #fe726b;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: var(--cor1);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    min-height: 100vh; 
+}
+
+.container {
+    background-color: white; 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    text-align: center;
+    margin-top: 40px; 
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 24px;
+    color: var(--cor3);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+    align-items: stretch;
+}
+
+label {
+    font-weight: bold;
+    color: var(--cor2);
+}
+
+input, select, textarea {
+    padding: 10px;
+    border: 1px solid var(--cor2);
+    border-radius: 5px;
+    font-size: 16px;
+    color: var(--cor2);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--cor6);
+    outline: none;
+}
+
+button {
+    background-color: var(--cor3);
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: var(--cor5);
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+}
+
+a {
+    display: inline-block;
+    color: white;
+    background-color: var(--cor2);
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+a:hover {
+    background-color: var(--cor5);
+}

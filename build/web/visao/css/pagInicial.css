@@ -1,0 +1,185 @@
+/* Estilos gerais */
+:root {
+    --cor1: #f4eeec;
+    --cor2: #4c4f72;
+    --cor3: #fd3765;
+    --cor4: #fd6907;
+    --cor5: #fe97b0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Tenor Sans', sans-serif;
+    background-color: var(--cor1);
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--cor1);
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header #logo {
+    display: flex;
+    align-items: center;
+}
+
+header #logo img {
+    width: 180px; 
+    height: auto;
+}
+
+header .auth-buttons a button {
+    background-color: var(--cor3);
+    border: none;
+    padding: 8px 15px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+header .auth-buttons a button:hover {
+    background-color: var(--cor2);
+}
+
+nav {
+    flex-grow: 1;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--cor2);
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: var(--cor3);
+    color: white;
+}
+
+#notificacao img {
+    width: 30px; 
+    height: auto;
+    cursor: pointer;
+    padding-right: 15px;
+}
+
+.capa {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    overflow: hidden;
+}
+
+.capa img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.crud-options {
+    margin-top: 50px;
+    text-align: center;
+    background-color: var(--cor1);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.crud-options h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--cor2);
+}
+
+.option-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.option-item {
+    background-color: var(--cor3);
+    color: white;
+    font-weight: bold;
+    padding: 50px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.option-item:hover {
+    background-color: var(--cor5);
+}
+
+footer {
+    background-color: var(--cor5);
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-bottom {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    header #logo img {
+        width: 150px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    nav ul li a {
+        padding: 6px 12px;
+    }
+
+    .capa {
+        height: 300px;
+    }
+
+    footer {
+        padding: 5px 10px;
+    }
+
+    footer .footer-bottom {
+        font-size: 10px;
+    }
+}
