@@ -88,6 +88,14 @@
         <servlet-name>CadServicoServlet</servlet-name>
         <servlet-class>br.com.bean.CadServicoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BuscarServicoServlet</servlet-name>
+        <servlet-class>br.com.bean.BuscarServicoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FrequenciaClienteServlet</servlet-name>
+        <servlet-class>br.com.bean.FrequenciaClienteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CadClienteServlet</servlet-name>
         <url-pattern>/CadCliente.do</url-pattern>
@@ -171,5 +179,13 @@
     <servlet-mapping>
         <servlet-name>CadServicoServlet</servlet-name>
         <url-pattern>/CadServico.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuscarServicoServlet</servlet-name>
+        <url-pattern>/BuscarServico.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FrequenciaClienteServlet</servlet-name>
+        <url-pattern>/FrequenciaClienteServlet</url-pattern>
     </servlet-mapping>
 </web-app>
