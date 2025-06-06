@@ -25,10 +25,6 @@
                 </ul>
             </nav>
 
-            <div id="notificacao">
-                <img src="../visao/imagens/comNotificacao.png" alt="Ícone de Notificação">
-            </div>
-
             <div class="auth-buttons">
                 <a href="login.jsp"><button>Sair</button></a>
             </div>

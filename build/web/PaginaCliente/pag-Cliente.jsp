@@ -25,7 +25,9 @@
             </nav>
 
             <div id="notificacao">
-                <img src="../visao/imagens/comNotificacao.png" alt="Ícone de Notificação">
+                <a href="../ListarNotificacoesServlet" title="Ver Notificações">
+                    <img src="../visao/imagens/comNotificacao.png" alt="Ícone de Notificação">
+                </a>
             </div>
 
             <!-- Ícone do perfil e popover -->
@@ -38,7 +40,7 @@
 
 
             <div class="auth-buttons">
-                <a href="<%= request.getContextPath() %>/Logout.do"><button>Sair</button></a>
+                <a href="../Logout.do"><button>Sair</button></a>
             </div>
         </header>
 

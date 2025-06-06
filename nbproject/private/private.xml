@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/carol/OneDrive/Documentos/NetBeansProjects/Lady's%20Beauty/web/frequencia-cliente.jsp</file>
-            <file>file:/C:/Users/carol/OneDrive/Documentos/NetBeansProjects/Lady's%20Beauty/web/listarAgendamentos.jsp</file>
+            <file>file:/C:/Users/carol/OneDrive/Documentos/NetBeansProjects/Lady's%20Beauty/src/java/br/com/bean/EditarAgendamentoServlet.java</file>
+            <file>file:/C:/Users/carol/OneDrive/Documentos/NetBeansProjects/Lady's%20Beauty/web/PaginaCliente/pag-Cliente.jsp</file>
+            <file>file:/C:/Users/carol/OneDrive/Documentos/NetBeansProjects/Lady's%20Beauty/web/PaginaADM/pag-ADM.jsp</file>
         </group>
     </open-files>
 </project-private>

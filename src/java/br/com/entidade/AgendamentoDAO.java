@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Statement; // Adicionado: Importação para Statement
 
 /**
  *
@@ -21,7 +22,8 @@ public class AgendamentoDAO extends DAO {
         try {
             abrirBanco();
             String query = "INSERT INTO agendamentos (cliente_id, funcionario_id, servico_id, data_agendamento, hora_agendamento, statu, pagamento_pontos) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            pst = con.prepareStatement(query);
+            // Modificado: Solicitar chaves geradas
+            pst = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, agendamento.getClienteId());
             pst.setInt(2, agendamento.getFuncionarioId());
             pst.setInt(3, agendamento.getServicoId());
@@ -32,6 +34,14 @@ public class AgendamentoDAO extends DAO {
             pst.setString(7, agendamento.getPagamentoPontos());
 
             pst.execute();
+
+            // Adicionado: Recuperar o ID gerado e definir no objeto Agendamento
+            ResultSet generatedKeys = pst.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                agendamento.setId(generatedKeys.getInt(1)); 
+            }
+            generatedKeys.close(); 
+            
             fecharBanco();
         } catch (Exception e) {
             System.out.println("Erro ao inserir agendamento: " + e.getMessage());

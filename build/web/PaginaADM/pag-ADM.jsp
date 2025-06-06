@@ -26,7 +26,9 @@
             </nav>
 
             <div id="notificacao">
-                <img src="../visao/imagens/comNotificacao.png" alt="Ícone de Notificação">
+                <a href="../ListarNotificacoesServlet" title="Ver Notificações">
+                    <img src="../visao/imagens/comNotificacao.png" alt="Ícone de Notificação">
+                </a>
             </div>
 
             <div class="auth-buttons">

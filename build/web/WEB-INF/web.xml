@@ -96,6 +96,18 @@
         <servlet-name>FrequenciaClienteServlet</servlet-name>
         <servlet-class>br.com.bean.FrequenciaClienteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListarNotificacoesServlet</servlet-name>
+        <servlet-class>br.com.bean.ListarNotificacoesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessarCienciaAgendamentoServlet</servlet-name>
+        <servlet-class>br.com.bean.ProcessarCienciaAgendamentoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelarAgendamentoServlet</servlet-name>
+        <servlet-class>br.com.bean.CancelarAgendamentoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CadClienteServlet</servlet-name>
         <url-pattern>/CadCliente.do</url-pattern>
@@ -187,5 +199,17 @@
     <servlet-mapping>
         <servlet-name>FrequenciaClienteServlet</servlet-name>
         <url-pattern>/FrequenciaClienteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListarNotificacoesServlet</servlet-name>
+        <url-pattern>/ListarNotificacoesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessarCienciaAgendamentoServlet</servlet-name>
+        <url-pattern>/ProcessarCienciaAgendamentoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelarAgendamentoServlet</servlet-name>
+        <url-pattern>/CancelarAgendamentoServlet</url-pattern>
     </servlet-mapping>
 </web-app>
