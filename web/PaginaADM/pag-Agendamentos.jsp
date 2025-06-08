@@ -21,7 +21,7 @@
                     <li><a href="pag-ADM.jsp">Início</a></li>
                     <li><a href="pag-servicos.jsp">Gerenciar Serviços</a></li>
                     <li><a href="pag-Funcionarios.jsp">Gerenciar Funcionários</a></li>
-                    <li><a href="pag-frequencia.jsp">Frequência dos Clientes</a></li>
+                    <li><a href="../FrequenciaClienteServlet">Frequência dos Clientes</a></li>
                 </ul>
             </nav>
 

@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Statement; // Adicionado: Importação para Statement
+import java.sql.Statement;
 
 /**
  *
@@ -22,7 +22,6 @@ public class AgendamentoDAO extends DAO {
         try {
             abrirBanco();
             String query = "INSERT INTO agendamentos (cliente_id, funcionario_id, servico_id, data_agendamento, hora_agendamento, statu, pagamento_pontos) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            // Modificado: Solicitar chaves geradas
             pst = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, agendamento.getClienteId());
             pst.setInt(2, agendamento.getFuncionarioId());
@@ -38,10 +37,10 @@ public class AgendamentoDAO extends DAO {
             // Adicionado: Recuperar o ID gerado e definir no objeto Agendamento
             ResultSet generatedKeys = pst.getGeneratedKeys();
             if (generatedKeys.next()) {
-                agendamento.setId(generatedKeys.getInt(1)); 
+                agendamento.setId(generatedKeys.getInt(1));
             }
-            generatedKeys.close(); 
-            
+            generatedKeys.close();
+
             fecharBanco();
         } catch (Exception e) {
             System.out.println("Erro ao inserir agendamento: " + e.getMessage());
@@ -165,5 +164,28 @@ public class AgendamentoDAO extends DAO {
         }
 
         return lista;
+    }
+
+    public boolean isHorarioOcupado(int funcionarioId, java.sql.Date data, java.sql.Time hora) {
+        boolean ocupado = false;
+        try {
+            abrirBanco();
+            String query = "SELECT COUNT(*) FROM agendamentos WHERE funcionario_id = ? AND data_agendamento = ? AND hora_agendamento = ? AND statu != 'cancelado'";
+            pst = con.prepareStatement(query);
+            pst.setInt(1, funcionarioId);
+            pst.setDate(2, data);
+            pst.setTime(3, hora);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                if (rs.getInt(1) > 0) {
+                    ocupado = true;
+                }
+            }
+            fecharBanco();
+        } catch (Exception e) {
+            System.out.println("Erro ao verificar horário ocupado: " + e.getMessage());
+        }
+        return ocupado;
     }
 }

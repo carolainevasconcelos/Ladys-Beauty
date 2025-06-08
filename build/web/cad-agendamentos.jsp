@@ -1,4 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%-- A linha abaixo é essencial para que o JSP entenda as tags <c:if> --%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -11,6 +14,12 @@
         <div class="container">
             <form action="CadAgendamentos.do" method="post">
                 <h2>Agendar Serviço</h2>
+
+                <c:if test="${not empty mensagemErro}">
+                    <div style="padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; color: #a94442; background-color: #f2dede; border-color: #ebccd1;">
+                        <strong>Erro:</strong> ${mensagemErro}
+                    </div>
+                </c:if>
 
                 <label>ID Cliente:</label>
                 <input type="number" name="cliente_id" required>
