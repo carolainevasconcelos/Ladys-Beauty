@@ -38,13 +38,111 @@ Lady's Beauty é um sistema web completo para salões de beleza, com as seguinte
 
 ---
 
-## 📥 Baixar resumo do projeto (.txt)
+## 🗃️ Script do Banco de Dados (MySQL)
 
-Você pode baixar uma versão resumida do projeto em texto:
+```sql
+-- Criação do banco de dados
+CREATE DATABASE IF NOT EXISTS SistemaAgendamentos;
+USE SistemaAgendamentos;
 
-➡️ [Download descrição.txt](descricao.txt)
+-- Tabela de Clientes
+CREATE TABLE IF NOT EXISTS clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefone VARCHAR(15) NOT NULL, 
+    senha_hash VARCHAR(255) NOT NULL,
+    saldo_pontos INT DEFAULT 0
+);
 
-> ⚠️ Certifique-se de que o arquivo `descricao.txt` esteja na raiz do repositório para que o link funcione corretamente.
+-- Tabela de Funcionários
+CREATE TABLE IF NOT EXISTS funcionarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
+    cargo ENUM('administrador', 'funcionario') NOT NULL DEFAULT 'funcionario', 
+    especialidade ENUM('cabelos', 'unhas', 'maquiagem', 'sobrancelhas', 'depilacao') DEFAULT NULL,
+    senha_hash VARCHAR(255) NOT NULL
+);
+
+-- Tabela de Serviços
+CREATE TABLE IF NOT EXISTS servicos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    preco DECIMAL(10,2) NOT NULL,
+    pontos_ganho INT DEFAULT 0,
+    pontos_resgate INT DEFAULT 0,
+    funcionario_id INT NOT NULL, 
+    categoria ENUM('unha', 'cabelo', 'maquiagem', 'sobrancelhas', 'depilacao') NOT NULL, 
+    status ENUM('ativo', 'inativo') DEFAULT 'ativo', 
+    FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id) ON DELETE CASCADE
+);
+
+-- Tabela de Agendamentos
+CREATE TABLE IF NOT EXISTS agendamentos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT NOT NULL,
+    funcionario_id INT NULL, 
+    servico_id INT NOT NULL,
+    data_agendamento DATE NOT NULL,  
+    hora_agendamento TIME NOT NULL,  
+    statu ENUM('agendado', 'cancelado', 'concluido'),
+    pagamento_pontos ENUM('sim', 'nao'),
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE,
+    FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id) ON DELETE SET NULL,
+    FOREIGN KEY (servico_id) REFERENCES servicos(id) ON DELETE CASCADE,
+    UNIQUE (funcionario_id, data_agendamento, hora_agendamento)
+);
+
+-- Tabela de Transações de Pontos
+CREATE TABLE IF NOT EXISTS transacoes_pontos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT NOT NULL,
+    servico_id INT NOT NULL,
+    agendamento_id INT NULL,
+    tipo ENUM('ganho', 'resgate') NOT NULL, 
+    quantidade INT NOT NULL, 
+    data_transacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE,
+    FOREIGN KEY (servico_id) REFERENCES servicos(id) ON DELETE CASCADE,
+    FOREIGN KEY (agendamento_id) REFERENCES agendamentos(id) ON DELETE SET NULL
+);
+
+-- Tabela de Notificações
+CREATE TABLE IF NOT EXISTS notificacoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    tipo_usuario VARCHAR(20) NOT NULL,
+    assunto VARCHAR(255) NOT NULL,
+    mensagem TEXT NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    lida BOOLEAN DEFAULT FALSE,
+    agendamento_id INT NULL DEFAULT NULL,
+    FOREIGN KEY (agendamento_id) REFERENCES agendamentos(id) ON DELETE SET NULL
+);
+
+-- Consultas úteis
+/*
+-- Verificar conflitos de agendamento
+SELECT funcionario_id, data_agendamento, hora_agendamento, COUNT(*) AS total_agendamentos
+FROM agendamentos
+GROUP BY funcionario_id, data_agendamento, hora_agendamento
+HAVING COUNT(*) > 1;
+
+-- Frequência de clientes
+SELECT c.id AS idCliente, c.nome AS nomeCliente, COUNT(a.id) AS frequencia
+FROM clientes c
+LEFT JOIN agendamentos a ON c.id = a.cliente_id
+GROUP BY c.id, c.nome
+ORDER BY frequencia DESC;
+
+-- Notificações de um funcionário
+SELECT * FROM notificacoes 
+WHERE usuario_id = 5 AND tipo_usuario = 'funcionario' 
+ORDER BY data_criacao DESC;
+*/
 
 ---
 
