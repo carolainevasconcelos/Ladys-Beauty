@@ -14,7 +14,7 @@ Sistema de agendamento para salões de beleza, desenvolvido em **Java, HTML, CSS
 git clone https://github.com/carolainevasconcelos/Ladys-Beauty.git
 ```
 
-4. Importe o projeto no NetBeans ou na IDE de sua preferência.
+4. Importe o projeto na IDE de sua preferência.
 
 ---
 
@@ -164,4 +164,4 @@ ORDER BY data_criacao DESC;
 
 ---
 
-Feito com 💜 por [Carolaine Vasconcelos](https://github.com/carolainevasconcelos)
+Feito por [Carolaine Vasconcelos](https://github.com/carolainevasconcelos) 💜
