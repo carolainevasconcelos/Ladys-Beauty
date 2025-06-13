@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package br.com.entidade;
 
 import br.com.controle.FrequenciaCliente;
@@ -5,6 +9,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author carol
+ */
 public class FrequenciaClienteDAO extends DAO {
 
     public List<FrequenciaCliente> listarFrequencia() {
@@ -14,7 +22,7 @@ public class FrequenciaClienteDAO extends DAO {
                      "GROUP BY c.id, c.nome ORDER BY frequencia DESC";
 
         try {
-            abrirBanco(); // método da superclasse DAO
+            abrirBanco(); // metodo da superclasse DAO
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery();
 

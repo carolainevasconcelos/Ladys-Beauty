@@ -1,4 +1,3 @@
-// Arquivo: Lady's Beauty/src/java/br/com/bean/ListarNotificacoesServlet.java
 package br.com.bean;
 
 import br.com.controle.Cliente;
@@ -27,7 +26,7 @@ public class ListarNotificacoesServlet extends HttpServlet {
         String tipoUsuario = null;
         String nomeUsuario = null;
 
-        // ADICIONADO: Variável booleana para ser passada para a JSP
+        // variavel booleana para passar pro JSP
         boolean isFuncionarioLogado = false; 
 
         if (session != null) {
@@ -42,34 +41,29 @@ public class ListarNotificacoesServlet extends HttpServlet {
                 usuarioId = funcionarioLogado.getId();
                 tipoUsuario = "funcionario";
                 nomeUsuario = funcionarioLogado.getNome();
-                isFuncionarioLogado = true; // Define como true se for funcionário
+                isFuncionarioLogado = true; 
             }
 
             if (usuarioId > 0 && tipoUsuario != null) {
                 notificacoes = notificacaoDAO.listarPorUsuario(usuarioId, tipoUsuario);
-                // Marcar como lidas ao serem visualizadas (opcional, pode ser uma ação separada)
-                // Para este exemplo, vamos marcar todas como lidas ao carregar a página.
                 notificacaoDAO.marcarTodasComoLidas(usuarioId, tipoUsuario);
                 request.setAttribute("notificacoes", notificacoes);
                 request.setAttribute("nomeUsuarioLogado", nomeUsuario);
             } else {
-                // Usuário não logado ou tipo de usuário desconhecido
-                response.sendRedirect("login.jsp"); // Redireciona para login
+                response.sendRedirect("login.jsp");
                 return;
             }
         } else {
-            // Sessão não existe, redireciona para login
             response.sendRedirect("login.jsp");
             return;
         }
         
-        // Adiciona a contagem de não lidas para o cabeçalho (exemplo)
         if (usuarioId > 0 && tipoUsuario != null) {
              int naoLidas = notificacaoDAO.contarNaoLidas(usuarioId, tipoUsuario);
              request.setAttribute("totalNaoLidas", naoLidas); // Após marcar todas como lidas, será 0. Se a marcação for por clique, isso mostrará o valor atual.
         }
 
-        // ADICIONADO: Passa a variável para a JSP, para que a JSTL possa lê-la
+        // passa a variavel pro a JSP, para que a JSTL possa le-la
         request.setAttribute("podeGerenciarNotificacoesEL", isFuncionarioLogado);
 
 

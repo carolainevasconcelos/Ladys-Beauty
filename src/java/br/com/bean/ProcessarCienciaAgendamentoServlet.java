@@ -1,4 +1,3 @@
-// Arquivo: Lady's Beauty/src/java/br/com/bean/ProcessarCienciaAgendamentoServlet.java
 package br.com.bean;
 
 import br.com.controle.Agendamento;
@@ -27,7 +26,7 @@ public class ProcessarCienciaAgendamentoServlet extends HttpServlet {
         Funcionario funcionarioLogado = (session != null) ? (Funcionario) session.getAttribute("funcionarioLogado") : null;
 
         if (funcionarioLogado == null) {
-            response.sendRedirect("../login.jsp"); // Use o caminho correto para seu login.jsp a partir da raiz
+            response.sendRedirect("../login.jsp");
             return;
         }
 
@@ -43,23 +42,19 @@ public class ProcessarCienciaAgendamentoServlet extends HttpServlet {
                 Agendamento agendamento = agendamentoDAO.buscarPorId(agendamentoId);
 
                 if (agendamento != null) {
-                    // O status do agendamento NÃO MUDA.
-                    // Apenas disparamos a notificação para o cliente.
 
                     ClienteDAO clienteDAO = new ClienteDAO();
                     ServicoDAO servicoDAO = new ServicoDAO();
                     
                     Cliente cliente = clienteDAO.buscarPorId(agendamento.getClienteId());
                     Servico servico = servicoDAO.buscarPorId(agendamento.getServicoId());
-                    // O funcionário que está dando ciência é o funcionárioLogado
 
                     if (cliente != null && servico != null) {
                         NotificationService notificationService = new NotificationService();
-                        // Para notifyClienteConfirmacaoAgendamento, o último parâmetro é o funcionário que "confirmou" (deu ciência)
                         notificationService.notifyClienteConfirmacaoAgendamento(cliente, servico, agendamento, funcionarioLogado);
                         
                         NotificacaoDAO notificacaoDAO = new NotificacaoDAO();
-                        notificacaoDAO.marcarComoLida(notificacaoIdDaAcao); // Marca a notificação original do funcionário como lida
+                        notificacaoDAO.marcarComoLida(notificacaoIdDaAcao);
                         
                         session.setAttribute("mensagemSucesso", "Cliente notificado da ciência do agendamento (ID: " + agendamentoId + ")!");
                     } else {
@@ -78,7 +73,6 @@ public class ProcessarCienciaAgendamentoServlet extends HttpServlet {
         } else {
             session.setAttribute("mensagemErro", "IDs necessários (agendamentoId, notificacaoId) não fornecidos.");
         }
-        // Redireciona de volta para a lista de notificações do funcionário
         response.sendRedirect("../ListarNotificacoesServlet");
     }
 }

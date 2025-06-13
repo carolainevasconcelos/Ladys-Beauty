@@ -14,35 +14,31 @@
         <link rel="stylesheet" href="visao/css/style.css"/>
         <link rel="stylesheet" href="visao/css/lista.css"/>
         <style>
-            /* Estilos para os botões dentro da coluna de Ação */
             form {
                 display: inline-block;
                 margin-right: 5px;
             }
             button {
-                color: white; /* Cor do texto padrão para os botões */
+                color: white;
                 border: none;
                 padding: 8px 12px;
                 border-radius: 5px;
                 cursor: pointer;
                 transition: background-color 0.3s ease;
-                /* Removido: background-color padrão e hover genérico para .acoes button */
             }
 
-            /* Estilo para o botão Confirmar: rosa claro */
             .confirmar {
-                background-color: #fe97b0; /* Rosa claro: #fe97b0 */
+                background-color: #fe97b0;
             }
             .confirmar:hover {
-                background-color: #fd3765; /* Hover para rosa mais forte: #fd3765 */
+                background-color: #fd3765;
             }
 
-            /* Estilo para o botão Cancelar: azul escuro */
             .cancelar {
-                background-color: #4c4f72; /* Azul escuro: #4c4f72 */
+                background-color: #4c4f72;
             }
             .cancelar:hover {
-                background-color: #fd3765; /* Um tom ligeiramente mais escuro para o hover do azul */
+                background-color: #fd3765;
             }
         </style>
     </head>
@@ -104,7 +100,7 @@
                             <c:set var="fraseParaRemover" value="Por favor, acesse o sistema para confirmar ou gerenciar este agendamento."/>
                             <c:set var="mensagemModificada" value="${fn:replace(mensagemOriginal, fraseParaRemover, '')}"/>
                             <c:set var="mensagemModificada" value="${fn:trim(mensagemModificada)}"/>
-                            
+
                             <tr class="${notificacao.lida ? '' : 'notificacao-item-nao-lida'}">
                                 <td><fmt:formatDate value="${notificacao.dataCriacao}" pattern="dd/MM/yyyy HH:mm:ss"/></td>
                                 <td><c:out value="${notificacao.assunto}"/></td>

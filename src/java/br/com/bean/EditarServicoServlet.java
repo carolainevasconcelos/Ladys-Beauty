@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class EditarServicoServlet extends HttpServlet {
 
-    // Processa a requisição (GET ou POST)
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");

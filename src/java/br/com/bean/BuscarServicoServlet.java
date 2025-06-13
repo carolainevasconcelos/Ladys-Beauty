@@ -13,7 +13,7 @@ public class BuscarServicoServlet extends HttpServlet {
         String query = request.getParameter("query").toLowerCase();
 
         ServicoDAO dao = new ServicoDAO();
-        List<Servico> todosServicos = dao.listar(); // método já existente no seu DAO
+        List<Servico> todosServicos = dao.listar(); 
         List<Servico> resultados = todosServicos.stream()
             .filter(s -> s.getNome().toLowerCase().contains(query))
             .collect(Collectors.toList());

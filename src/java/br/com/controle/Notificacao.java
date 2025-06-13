@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 public class Notificacao {
     private int id;
     private int usuarioId;
-    private String tipoUsuario; // "cliente" ou "funcionario"
+    private String tipoUsuario; 
     private String assunto;
     private String mensagem;
     private Timestamp dataCriacao;

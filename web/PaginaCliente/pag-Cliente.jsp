@@ -20,7 +20,7 @@
                 <ul>
                     <li><a href="../index.jsp">Site</a></li>
                     <li><a href="<%= request.getContextPath() %>/AgendamentosRestritosServlet">Gerenciar Agendamentos</a></li>
-                    <li><a href="pag-AgendamentosPP.jsp">Pontos</a></li>
+                    <li><a href="<%= request.getContextPath() %>/PontosServlet">Pontos</a></li>
                 </ul>
             </nav>
 

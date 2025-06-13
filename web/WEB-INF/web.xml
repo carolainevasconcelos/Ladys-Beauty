@@ -108,6 +108,14 @@
         <servlet-name>CancelarAgendamentoServlet</servlet-name>
         <servlet-class>br.com.bean.CancelarAgendamentoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PontosServlet</servlet-name>
+        <servlet-class>br.com.bean.PontosServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResgatarPontosServlet</servlet-name>
+        <servlet-class>br.com.bean.ResgatarPontosServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CadClienteServlet</servlet-name>
         <url-pattern>/CadCliente.do</url-pattern>
@@ -211,5 +219,13 @@
     <servlet-mapping>
         <servlet-name>CancelarAgendamentoServlet</servlet-name>
         <url-pattern>/CancelarAgendamentoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PontosServlet</servlet-name>
+        <url-pattern>/PontosServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResgatarPontosServlet</servlet-name>
+        <url-pattern>/ResgatarPontosServlet</url-pattern>
     </servlet-mapping>
 </web-app>

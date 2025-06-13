@@ -26,7 +26,7 @@
             </nav>
 
             <div class="auth-buttons">
-                <a href="login.jsp"><button>Sair</button></a>
+                <a href="../Logout.do"><button>Sair</button></a>
             </div>
         </header>
 

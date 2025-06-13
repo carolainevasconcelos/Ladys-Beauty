@@ -34,7 +34,7 @@ public class FuncionarioDAO extends DAO {
             System.out.println("Erro ao inserir funcionário: " + e.getMessage());
         }
     }
-
+    // verificar email
     public boolean emailJaCadastrado(String email) {
         boolean existe = false;
         try {
@@ -55,7 +55,7 @@ public class FuncionarioDAO extends DAO {
 
         return existe;
     }
-
+    // buscar email
     public Funcionario buscarPorEmail(String email) {
         Funcionario f = null;
         try {

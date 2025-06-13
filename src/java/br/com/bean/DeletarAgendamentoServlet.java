@@ -25,8 +25,6 @@ public class DeletarAgendamentoServlet extends HttpServlet {
             AgendamentoDAO dao = new AgendamentoDAO();
             dao.deletar(id); 
 
-//            response.sendRedirect("ListarAgendamentos.do");
-
         } catch (Exception e) {
             response.getWriter().println("Erro ao deletar agendamento: " + e.getMessage());
         }

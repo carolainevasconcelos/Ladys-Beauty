@@ -26,7 +26,7 @@
             </nav>
 
             <div class="auth-buttons">
-                <a href="login.jsp"><button>Sair</button></a>
+                <a href="../Logout.do"><button>Sair</button></a>
             </div>
         </header>
 
@@ -35,7 +35,7 @@
             <h2>Gerenciar Agendamentos</h2>
             <div class="option-list">
                 <a href="../ListarAgendamentos.do" class="option-item">Listar Agendamentos</a>
-                <a href="../cad-agendamentos.jsp" class="option-item">Cadastrar Agendamento</a>
+                <a href="../CadAgendamentos.do" class="option-item">Cadastrar Agendamento</a>
             </div>
         </section>
 

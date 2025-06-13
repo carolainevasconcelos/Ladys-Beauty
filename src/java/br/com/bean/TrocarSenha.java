@@ -23,7 +23,7 @@ public class TrocarSenha extends HttpServlet {
         String email = request.getParameter("email");
         String novaSenha = request.getParameter("novaSenha");
 
-        // Criptografa a senha antes de atualizar
+        // criptografa a senha antes de atualizar
         String novaSenhaCriptografada = criptografarSenha(novaSenha);
 
         ClienteDAO clienteDAO = new ClienteDAO();

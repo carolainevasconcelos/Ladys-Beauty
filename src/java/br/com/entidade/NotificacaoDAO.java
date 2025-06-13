@@ -1,20 +1,26 @@
-// Arquivo: Lady's Beauty/src/java/br/com/entidade/NotificacaoDAO.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package br.com.entidade;
 
 import br.com.controle.Notificacao;
 import java.sql.Timestamp;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types; // Importar para pst.setNull
+import java.sql.Types; 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author carol
+ */
 public class NotificacaoDAO extends DAO {
 
     public void inserir(Notificacao notificacao) {
         try {
             abrirBanco();
-            // Query com agendamento_id (7 colunas, 7 parâmetros)
             String query = "INSERT INTO notificacoes (usuario_id, tipo_usuario, assunto, mensagem, lida, data_criacao, agendamento_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
             pst = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, notificacao.getUsuarioId());
@@ -24,10 +30,10 @@ public class NotificacaoDAO extends DAO {
             pst.setBoolean(5, notificacao.isLida());
             pst.setTimestamp(6, notificacao.getDataCriacao() != null ? notificacao.getDataCriacao() : new Timestamp(System.currentTimeMillis()));
             
-            if (notificacao.getAgendamentoId() > 0) { // Verifica se é um ID válido
+            if (notificacao.getAgendamentoId() > 0) { // verifica se e um ID valido
                 pst.setInt(7, notificacao.getAgendamentoId());
             } else {
-                pst.setNull(7, Types.INTEGER); // Permite nulo se não houver agendamento_id
+                pst.setNull(7, Types.INTEGER); // permicao de nulo se nao houver agendamento_id
             }
             
             pst.executeUpdate();
@@ -49,7 +55,6 @@ public class NotificacaoDAO extends DAO {
         List<Notificacao> notificacoes = new ArrayList<>();
         try {
             abrirBanco();
-            // Query com agendamento_id
             String query = "SELECT id, usuario_id, tipo_usuario, assunto, mensagem, data_criacao, lida, agendamento_id FROM notificacoes WHERE usuario_id = ? AND tipo_usuario = ? ORDER BY data_criacao DESC";
             pst = con.prepareStatement(query);
             pst.setInt(1, usuarioId);
@@ -65,7 +70,7 @@ public class NotificacaoDAO extends DAO {
                 notificacao.setMensagem(rs.getString("mensagem"));
                 notificacao.setDataCriacao(rs.getTimestamp("data_criacao"));
                 notificacao.setLida(rs.getBoolean("lida"));
-                notificacao.setAgendamentoId(rs.getInt("agendamento_id")); // Carregar o agendamento_id
+                notificacao.setAgendamentoId(rs.getInt("agendamento_id")); 
                 notificacoes.add(notificacao);
             }
         } catch (SQLException e) {
@@ -91,7 +96,7 @@ public class NotificacaoDAO extends DAO {
             fecharBanco();
         }
     }
-    
+    // marcar lida dps de vista
     public void marcarTodasComoLidas(int usuarioId, String tipoUsuario) {
         try {
             abrirBanco();
@@ -107,7 +112,7 @@ public class NotificacaoDAO extends DAO {
             fecharBanco();
         }
     }
-
+    // notificacoes nao lidas
     public int contarNaoLidas(int usuarioId, String tipoUsuario) {
         int count = 0;
         try {

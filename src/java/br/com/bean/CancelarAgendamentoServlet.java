@@ -1,4 +1,3 @@
-// Arquivo: Lady's Beauty/src/java/br/com/bean/CancelarAgendamentoServlet.java
 package br.com.bean;
 
 import br.com.controle.Agendamento;
@@ -27,16 +26,14 @@ public class CancelarAgendamentoServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         Funcionario funcionarioLogado = (session != null) ? (Funcionario) session.getAttribute("funcionarioLogado") : null;
 
-        // Apenas funcionários logados podem executar esta ação
+        // apenas funcionarios logados podem executar esta açao
         if (funcionarioLogado == null) {
-            // Se não houver funcionário logado, redireciona para o login ou página de erro de permissão.
-            // Usando o caminho absoluto a partir da raiz do contexto para login.jsp
             response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
 
         String agendamentoIdStr = request.getParameter("agendamentoId");
-        String notificacaoIdStr = request.getParameter("notificacaoId"); // ID da notificação original do funcionário
+        String notificacaoIdStr = request.getParameter("notificacaoId"); 
 
         if (agendamentoIdStr != null && !agendamentoIdStr.isEmpty()) {
             try {
@@ -45,20 +42,17 @@ public class CancelarAgendamentoServlet extends HttpServlet {
                 Agendamento agendamento = agendamentoDAO.buscarPorId(agendamentoId);
 
                 if (agendamento != null) {
-                    // 1. Mudar o status do agendamento para "cancelado"
-                    agendamento.setStatu("cancelado"); // Conforme o ENUM da sua tabela
-                    agendamentoDAO.editar(agendamento); // Salva a alteração no banco
+                    agendamento.setStatu("cancelado"); 
+                    agendamentoDAO.editar(agendamento); 
 
-                    // 2. Notificar o cliente sobre o cancelamento (EPIC 20)
-                    ClienteDAO clienteDAO = new ClienteDAO(); //
-                    ServicoDAO servicoDAO = new ServicoDAO(); //
+                    ClienteDAO clienteDAO = new ClienteDAO(); 
+                    ServicoDAO servicoDAO = new ServicoDAO(); 
                     
                     Cliente cliente = clienteDAO.buscarPorId(agendamento.getClienteId());
                     Servico servico = servicoDAO.buscarPorId(agendamento.getServicoId());
 
                     if (cliente != null && servico != null) {
-                        NotificationService notificationService = new NotificationService(); //
-                        // O funcionário que cancelou é o funcionárioLogado
+                        NotificationService notificationService = new NotificationService(); 
                         notificationService.notifyClienteCancelamentoAgendamento(cliente, agendamento, funcionarioLogado, servico);
                     } else {
                         System.err.println("CancelarAgendamentoServlet: Não foi possível obter dados do cliente ou serviço para notificar o cancelamento.");
@@ -66,7 +60,6 @@ public class CancelarAgendamentoServlet extends HttpServlet {
                         if(servico == null) System.err.println("Serviço ID " + agendamento.getServicoId() + " não encontrado.");
                     }
 
-                    // 3. Marcar a notificação original do funcionário como lida (ou processada)
                     if (notificacaoIdStr != null && !notificacaoIdStr.isEmpty()) {
                         try {
                             int notificacaoIdParaMarcar = Integer.parseInt(notificacaoIdStr);
@@ -92,16 +85,12 @@ public class CancelarAgendamentoServlet extends HttpServlet {
         } else {
             session.setAttribute("mensagemErro", "ID do agendamento não fornecido para cancelamento.");
         }
-        // Redireciona de volta para a lista de notificações do funcionário
         response.sendRedirect(request.getContextPath() + "/ListarNotificacoesServlet");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Ações de modificação de dados (como cancelar) devem ser feitas via POST por segurança e boas práticas.
-        // Se um GET for recebido, pode-se redirecionar para uma página de erro ou para o doPost se apropriado,
-        // mas é melhor não permitir GET para esta ação.
         response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Método GET não é suportado para esta ação. Use POST.");
     }
 

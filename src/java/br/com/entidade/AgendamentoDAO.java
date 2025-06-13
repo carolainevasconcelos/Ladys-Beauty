@@ -18,6 +18,7 @@ import java.sql.Statement;
  */
 public class AgendamentoDAO extends DAO {
 
+    // insere novo agendamento no banco
     public void inserir(Agendamento agendamento) {
         try {
             abrirBanco();
@@ -28,13 +29,11 @@ public class AgendamentoDAO extends DAO {
             pst.setInt(3, agendamento.getServicoId());
             pst.setDate(4, new java.sql.Date(agendamento.getDataAgendamento().getTime()));
             pst.setTime(5, new java.sql.Time(agendamento.getHoraAgendamento().getTime()));
-
             pst.setString(6, agendamento.getStatu());
             pst.setString(7, agendamento.getPagamentoPontos());
-
             pst.execute();
 
-            // Adicionado: Recuperar o ID gerado e definir no objeto Agendamento
+            // recupera o id gerado automaticamente
             ResultSet generatedKeys = pst.getGeneratedKeys();
             if (generatedKeys.next()) {
                 agendamento.setId(generatedKeys.getInt(1));
@@ -47,6 +46,7 @@ public class AgendamentoDAO extends DAO {
         }
     }
 
+    // retorna todos os agendamentos cadastrados
     public List<Agendamento> listar() {
         List<Agendamento> lista = new ArrayList<>();
 
@@ -76,6 +76,7 @@ public class AgendamentoDAO extends DAO {
         return lista;
     }
 
+    // busca agendamento pelo id
     public Agendamento buscarPorId(int id) {
         Agendamento agendamento = null;
         try {
@@ -103,6 +104,7 @@ public class AgendamentoDAO extends DAO {
         return agendamento;
     }
 
+    // atualiza um agendamento existente
     public void editar(Agendamento agendamento) {
         try {
             abrirBanco();
@@ -115,7 +117,7 @@ public class AgendamentoDAO extends DAO {
             pst.setTime(5, new java.sql.Time(agendamento.getHoraAgendamento().getTime()));
             pst.setString(6, agendamento.getStatu());
             pst.setString(7, agendamento.getPagamentoPontos());
-            pst.setInt(8, agendamento.getId()); // Atualizando pelo ID do agendamento
+            pst.setInt(8, agendamento.getId()); // atualiza pelo id
             pst.executeUpdate();
             fecharBanco();
         } catch (Exception e) {
@@ -123,6 +125,7 @@ public class AgendamentoDAO extends DAO {
         }
     }
 
+    // remove um agendamento pelo id
     public void deletar(int id) {
         try {
             abrirBanco();
@@ -136,6 +139,7 @@ public class AgendamentoDAO extends DAO {
         }
     }
 
+    // retorna lista de agendamentos de um cliente especifico
     public List<Agendamento> buscarPorCliente(int clienteId) {
         List<Agendamento> lista = new ArrayList<>();
 
@@ -166,6 +170,7 @@ public class AgendamentoDAO extends DAO {
         return lista;
     }
 
+    // verifica se o horário já está ocupado para o funcionario
     public boolean isHorarioOcupado(int funcionarioId, java.sql.Date data, java.sql.Time hora) {
         boolean ocupado = false;
         try {

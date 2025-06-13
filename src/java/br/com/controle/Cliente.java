@@ -14,6 +14,15 @@ public class Cliente {
     private String email;
     private String telefone;
     private String senha;
+    private int saldoPontos;
+
+    public int getSaldoPontos() {
+        return saldoPontos;
+    }
+
+    public void setSaldoPontos(int saldoPontos) {
+        this.saldoPontos = saldoPontos;
+    }
 
     public int getId() {
         return id;
@@ -54,6 +63,4 @@ public class Cliente {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
 }

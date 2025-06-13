@@ -12,7 +12,7 @@ public class FrequenciaClienteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        FrequenciaClienteDAO dao = new FrequenciaClienteDAO(); // já cuida da conexão
+        FrequenciaClienteDAO dao = new FrequenciaClienteDAO(); 
         List<FrequenciaCliente> frequenciaLista = dao.listarFrequencia();
 
         request.setAttribute("frequenciaLista", frequenciaLista);

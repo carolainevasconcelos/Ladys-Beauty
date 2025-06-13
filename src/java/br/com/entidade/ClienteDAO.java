@@ -6,6 +6,8 @@ package br.com.entidade;
 
 import br.com.controle.Cliente;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,22 +15,25 @@ import java.sql.PreparedStatement;
  */
 public class ClienteDAO extends DAO {
 
-    public void inserir(Cliente CadCliente) {
+    // insere novo cliente no banco
+    public void inserir(Cliente cadCliente) {
         try {
             abrirBanco();
             String query = "INSERT INTO clientes (nome, email, telefone, senha_hash) VALUES (?, ?, ?, ?)";
-            pst = (PreparedStatement) con.prepareStatement(query);
-            pst.setString(1, CadCliente.getNome());
-            pst.setString(2, CadCliente.getEmail());
-            pst.setString(3, CadCliente.getTelefone());
-            pst.setString(4, CadCliente.getSenha());
+            pst = con.prepareStatement(query);
+            pst.setString(1, cadCliente.getNome());
+            pst.setString(2, cadCliente.getEmail());
+            pst.setString(3, cadCliente.getTelefone());
+            pst.setString(4, cadCliente.getSenha());
             pst.execute();
-            fecharBanco();
         } catch (Exception e) {
-            System.out.println("Erro " + e.getMessage());
+            System.out.println("Erro ao inserir cliente: " + e.getMessage());
+        } finally {
+            fecharBanco();
         }
     }
 
+    // verifica se email ja esta cadastrado
     public boolean emailJaCadastrado(String email) {
         boolean existe = false;
         try {
@@ -37,19 +42,18 @@ public class ClienteDAO extends DAO {
             pst = con.prepareStatement(query);
             pst.setString(1, email);
             rs = pst.executeQuery();
-
             if (rs.next()) {
                 existe = true;
             }
-
-            fecharBanco();
         } catch (Exception e) {
             System.out.println("Erro ao verificar email: " + e.getMessage());
+        } finally {
+            fecharBanco();
         }
-
         return existe;
     }
 
+    // busca cliente pelo email
     public Cliente buscarPorEmail(String email) {
         Cliente cliente = null;
         try {
@@ -58,7 +62,6 @@ public class ClienteDAO extends DAO {
             pst = con.prepareStatement(query);
             pst.setString(1, email);
             rs = pst.executeQuery();
-
             if (rs.next()) {
                 cliente = new Cliente();
                 cliente.setId(rs.getInt("id"));
@@ -66,15 +69,17 @@ public class ClienteDAO extends DAO {
                 cliente.setEmail(rs.getString("email"));
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setSenha(rs.getString("senha_hash"));
+                cliente.setSaldoPontos(rs.getInt("saldo_pontos"));
             }
-
-            fecharBanco();
         } catch (Exception e) {
-            System.out.println("Erro ao buscar cliente: " + e.getMessage());
+            System.out.println("Erro ao buscar cliente por email: " + e.getMessage());
+        } finally {
+            fecharBanco();
         }
         return cliente;
     }
 
+    // busca cliente pelo id
     public Cliente buscarPorId(int id) {
         Cliente cliente = null;
         try {
@@ -83,7 +88,6 @@ public class ClienteDAO extends DAO {
             pst = con.prepareStatement(query);
             pst.setInt(1, id);
             rs = pst.executeQuery();
-
             if (rs.next()) {
                 cliente = new Cliente();
                 cliente.setId(rs.getInt("id"));
@@ -91,15 +95,17 @@ public class ClienteDAO extends DAO {
                 cliente.setEmail(rs.getString("email"));
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setSenha(rs.getString("senha_hash"));
+                cliente.setSaldoPontos(rs.getInt("saldo_pontos"));
             }
-
-            fecharBanco();
         } catch (Exception e) {
             System.out.println("Erro ao buscar cliente por ID: " + e.getMessage());
+        } finally {
+            fecharBanco();
         }
         return cliente;
     }
 
+    // edita os dados de um cliente
     public void editar(Cliente cliente) {
         try {
             abrirBanco();
@@ -110,12 +116,14 @@ public class ClienteDAO extends DAO {
             pst.setString(3, cliente.getTelefone());
             pst.setInt(4, cliente.getId());
             pst.executeUpdate();
-            fecharBanco();
         } catch (Exception e) {
             System.out.println("Erro ao editar cliente: " + e.getMessage());
+        } finally {
+            fecharBanco();
         }
     }
 
+    // atualiza a senha de um cliente
     public void atualizarSenha(int id, String novaSenhaHash) {
         try {
             abrirBanco();
@@ -124,9 +132,53 @@ public class ClienteDAO extends DAO {
             pst.setString(1, novaSenhaHash);
             pst.setInt(2, id);
             pst.executeUpdate();
-            fecharBanco();
         } catch (Exception e) {
             System.out.println("Erro ao atualizar senha do cliente: " + e.getMessage());
+        } finally {
+            fecharBanco();
+        }
+    }
+
+    // lista todos os clientes cadastrados
+    public List<Cliente> listar() {
+        List<Cliente> clientes = new ArrayList<>();
+        try {
+            abrirBanco();
+            String query = "SELECT * FROM clientes";
+            pst = con.prepareStatement(query);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setSenha(rs.getString("senha_hash"));
+                cliente.setSaldoPontos(rs.getInt("saldo_pontos"));
+                clientes.add(cliente);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao listar clientes: " + e.getMessage());
+        } finally {
+            fecharBanco();
+        }
+        return clientes;
+    }
+
+    // atualiza o saldo de pontos do cliente
+    public void atualizarSaldoPontos(int clienteId, int novoSaldo) {
+        try {
+            abrirBanco();
+            String query = "UPDATE clientes SET saldo_pontos = ? WHERE id = ?";
+            pst = con.prepareStatement(query);
+            pst.setInt(1, novoSaldo);
+            pst.setInt(2, clienteId);
+            pst.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Erro ao atualizar saldo de pontos do cliente: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            fecharBanco();
         }
     }
 }

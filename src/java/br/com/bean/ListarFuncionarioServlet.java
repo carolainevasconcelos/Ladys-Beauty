@@ -35,9 +35,9 @@ public class ListarFuncionarioServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             FuncionarioDAO dao = new FuncionarioDAO();
-            List<Funcionario> funcionarios = dao.listar(); // Chama o método listar da DAO
+            List<Funcionario> funcionarios = dao.listar(); 
 
-            request.setAttribute("funcionarios", funcionarios); // Passa a lista para o JSP
+            request.setAttribute("funcionarios", funcionarios);
             request.getRequestDispatcher("/listarFuncionarios.jsp").forward(request, response);
         }
     }
