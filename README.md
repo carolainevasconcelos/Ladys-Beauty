@@ -1,6 +1,6 @@
 # 💇 Lady's Beauty
 
-Sistema de agendamento para salões de beleza, desenvolvido em **Java, HTML, CSS e JavaScript**. A aplicação possui funcionalidades completas para o gerenciamento de clientes, funcionários e administradores, focando em usabilidade e controle de agendamentos.
+Sistema de agendamento para salões de beleza, desenvolvido em **Java, HTML, CSS e JavaScript**. A aplicação possui funcionalidades completas para o gerenciamento de clientes, funcionários e administradores, com foco em usabilidade e controle de agendamentos.
 
 ---
 
@@ -23,7 +23,7 @@ git clone https://github.com/carolainevasconcelos/Ladys-Beauty.git
 Lady's Beauty é um sistema web completo para salões de beleza, com as seguintes funcionalidades:
 
 ### 👥 Atores do sistema:
-- **Administrador**: controle total do sistema, incluindo gerenciamento de funcionários.
+- **Administrador**: controle total do sistema, incluindo o gerenciamento de funcionários.
 - **Funcionário**: gerenciamento de agendamentos e serviços.
 - **Cliente**: agendamento, reagendamento e cancelamento de serviços, visualização de histórico e saldo de pontos.
 
@@ -31,7 +31,7 @@ Lady's Beauty é um sistema web completo para salões de beleza, com as seguinte
 - **CRUD de Usuário, Serviço e Agendamento**
 - **Autenticação com criptografia de senha**
 - **Sistema de busca**
-- **Notificações sobre status do agendamento**
+- **Notificações sobre o status do agendamento**
 - **Programa de pontos para fidelidade**
 - **Relatório de frequência de clientes**
 - **Controle de acesso por perfil**
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS notificacoes (
 );
 
 -- Consultas úteis
-/*
+
 -- Verificar conflitos de agendamento
 SELECT funcionario_id, data_agendamento, hora_agendamento, COUNT(*) AS total_agendamentos
 FROM agendamentos
@@ -142,7 +142,7 @@ ORDER BY frequencia DESC;
 SELECT * FROM notificacoes 
 WHERE usuario_id = 5 AND tipo_usuario = 'funcionario' 
 ORDER BY data_criacao DESC;
-*/
+```
 
 ---
 
